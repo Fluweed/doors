@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel de Contagem de Paletes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: turquoise;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #info {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Painel de Contagem de Paletes</h1>
+  <div id="clock">00:00:00</div>
+  <div id="info">
+    <p><strong>Contagem de Paletes:</strong> <span id="count">0</span></p>
+    <p><strong>Último registro:</strong> <span id="lastTime">--:--:--</span></p>
+    <p>Pressione a tecla <strong>+</strong> para registrar um palete.</p>
+  </div>
+
+  <script>
+    let count = 0;
+    let lastRegisterTime = null;
+    const countElement = document.getElementById('count');
+    const lastTimeElement = document.getElementById('lastTime');
+    const clockElement = document.getElementById('clock');
+    const bodyElement = document.body;
+    const TIMEOUT = 20 * 60 * 1000; // 20 minutos em milissegundos
+
+    // Atualiza o relógio atual na tela a cada segundo
+    setInterval(() => {
+      const now = new Date();
+      clockElement.textContent = now.toLocaleTimeString();
+    }, 1000);
+
+    // Verifica se passou 20 minutos sem registrar um palete
+    setInterval(() => {
+      if (lastRegisterTime) {
+        const now = new Date();
+        if (now - lastRegisterTime >= TIMEOUT) {
+          bodyElement.style.backgroundColor = 'orange';
+        }
+      }
+    }, 1000);
+
+    // Função para registrar um palete
+    function registrarPalete() {
+      count++;
+      lastRegisterTime = new Date();
+      countElement.textContent = count;
+      lastTimeElement.textContent = lastRegisterTime.toLocaleTimeString();
+      bodyElement.style.backgroundColor = 'turquoise'; // retorna para turquesa após registro
+    }
+
+    // Evento para capturar a tecla '+'
+    document.addEventListener('keydown', (e) => {
+      // e.key pode ser '+' ou '=' em alguns teclados, dependendo da configuração
+      if (e.key === '+') {
+        registrarPalete();
+      }
+    });
+  </script>
+</body>
+</html>
