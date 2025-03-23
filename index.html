@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Painel de Contagem de Paletes</title>
+  <title>TAD Recebimento</title>
   <style>
     body {
       margin: 0;
@@ -17,18 +17,30 @@
     }
     #info {
       margin-top: 20px;
-      font-size: 1.2em;
+      font-size: 3.3em;
+    }
+    #logo {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 100px;
+      height: auto;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <h1>Painel de Contagem de Paletes</h1>
-  <div id="clock">00:00:00</div>
+  <h1>TAD Recebimento</h1>
+  
   <div id="info">
-    <p><strong>Contagem de Paletes:</strong> <span id="count">0</span></p>
-    <p><strong>Último registro:</strong> <span id="lastTime">--:--:--</span></p>
+    <p><strong>📦 Contagem de Paletes:</strong> <span id="count">0</span></p>
+    <p><strong>⏲️ Último registro:</strong> <span id="lastTime">--:--:--</span></p>
     <p>Pressione a tecla <strong>+</strong> para registrar um palete.</p>
+    <div id="clock">⌛ 00:00:00</div>
   </div>
+
+  <!-- Imagem no canto inferior direito -->
+  <img id="logo" src="https://i.postimg.cc/02T4W0vK/gb.png" alt="Logo">
 
   <script>
     let count = 0;
@@ -66,7 +78,6 @@
 
     // Evento para capturar a tecla '+'
     document.addEventListener('keydown', (e) => {
-      // e.key pode ser '+' ou '=' em alguns teclados, dependendo da configuração
       if (e.key === '+') {
         registrarPalete();
       }
